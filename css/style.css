@@ -1,0 +1,487 @@
+*{box-sizing:border-box;font-family:Arial}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;padding:15px;transition:.3s;width:100%;overflow-x:hidden}
+body.dark{background:#121212;color:#fff}
+body.light{background:#f2f2f2;color:#111}
+.container{max-width:430px;margin:auto}
+
+.card{
+    padding:18px;
+    border-radius:18px;
+    margin-bottom:15px;
+    background:rgba(255,255,255,.08);
+    box-shadow:0 4px 14px rgba(0,0,0,.25)
+}
+
+input, select{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:14px;
+    font-size:18px;
+    margin-bottom:12px;
+    font-family:Arial;
+    color:#111
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:14px;
+    font-size:17px;
+    cursor:pointer
+}
+
+button:disabled{
+    opacity:.5;
+    cursor:not-allowed
+}
+
+.primary{background:#1976d2;color:white}
+.toggle{background:#444;color:white;margin-bottom:12px}
+
+.metaBtn{
+    background:#00c853;
+    color:white;
+    margin-bottom:12px;
+}
+
+.metaOptions{
+    display:none;
+    gap:8px;
+    margin-bottom:15px;
+}
+
+.metaOptions button{
+    flex:1;
+    background:#00c853;
+    color:white;
+    padding:12px;
+}
+
+.hourBlock{
+    padding:18px;
+    border-radius:18px;
+    margin-bottom:20px;
+    background:rgba(255,255,255,.08)
+}
+
+.hourTitle{
+    font-size:18px;
+    font-weight:bold;
+}
+
+.hourTotal{
+    font-size:34px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.status{
+    font-size:24px;
+    font-weight:bold;
+    margin:10px 0 15px 0;
+}
+
+.ride{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px;
+    border-radius:14px;
+    margin-bottom:10px;
+    background:rgba(255,255,255,.08);
+}
+
+.actions{
+    display:flex;
+    gap:5px;
+}
+
+.actions button{
+    width:auto;
+    padding:8px 10px;
+}
+
+/* ===== Topo / Atualizar ===== */
+.topBar{
+    margin-bottom:15px;
+}
+
+#btnAtualizar{
+    background:#333;
+    color:#fff;
+    font-size:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+}
+
+/* ===== Abas ===== */
+.tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom:15px;
+}
+
+.tabBtn{
+    flex:1;
+    padding:13px;
+    border:none;
+    border-radius:14px;
+    background:rgba(255,255,255,.08);
+    color:inherit;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    opacity:.6;
+}
+
+.tabBtn.active{
+    opacity:1;
+    background:#1976d2;
+    color:#fff;
+}
+
+.tabContent{
+    display:none;
+}
+
+.tabContent.active{
+    display:block;
+}
+
+/* ===== Pix: cabeçalho e chaves ===== */
+.pixTitulo{
+    text-align:center;
+    font-size:20px;
+    font-weight:bold;
+    margin:0 0 15px 0;
+}
+
+.btn-gerar, .btn-recebido{
+    background:#2d6cdf;
+    color:white;
+}
+
+.btn-voltar{
+    background:#222;
+    color:white;
+}
+
+.chaveItem{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px;
+    border-radius:14px;
+    margin-bottom:10px;
+    background:rgba(255,255,255,.08);
+}
+
+.chaveInfo{
+    overflow:hidden;
+    padding-right:8px;
+}
+
+.chaveNome{
+    font-weight:bold;
+    font-size:15px;
+}
+
+.chaveValor{
+    font-size:13px;
+    opacity:.75;
+    word-break:break-all;
+    font-family:monospace;
+    margin-top:2px;
+}
+
+.chaveActions{
+    display:flex;
+    gap:6px;
+    flex-shrink:0;
+}
+
+.chaveActions button{
+    width:auto;
+    padding:8px 10px;
+}
+
+.semChaves{
+    text-align:center;
+    opacity:.7;
+    padding:10px 0;
+    font-size:14px;
+}
+
+.formChave{
+    display:none;
+    margin-top:5px;
+}
+
+.formChave.visivel{
+    display:block;
+}
+
+.btn-chaves{
+    background:#333;
+    color:#fff;
+    margin-bottom:15px;
+}
+
+.chavesModalCard{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:90%;
+    max-width:400px;
+    max-height:82vh;
+    overflow-y:auto;
+    background:#242424;
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 -8px 30px rgba(0,0,0,.45);
+    color:#fff;
+}
+
+.chavesModalHeader{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.btn-fechar-chaves{
+    width:auto;
+    padding:6px 12px;
+    background:#333;
+    color:#fff;
+}
+
+.btn-voltar-pix{
+    background:#222;
+    color:#fff;
+    margin-bottom:10px;
+}
+
+.btn-add-chave{
+    background:#00c853;
+    color:#fff;
+}
+
+.formChaveBotoes{
+    display:flex;
+    gap:8px;
+}
+
+.formChaveBotoes button{
+    flex:1;
+}
+
+.btn-salvar-chave{
+    background:#00c853;
+    color:#fff;
+}
+
+.btn-cancelar-chave{
+    background:#444;
+    color:#fff;
+}
+
+/* QR */
+#qrArea{
+    display:none;
+    text-align:center;
+}
+
+#qrcode{
+    margin-top:20px;
+    background:white;
+    padding:12px;
+    border-radius:12px;
+    display:inline-block;
+}
+
+/* Overlay */
+.overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background:rgba(0,0,0,0.82);
+    display:none;
+    z-index:999;
+}
+
+.confirmacao-centro{
+    position:absolute;
+    top:36%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    text-align:center;
+    width:100%;
+}
+
+.check{
+    font-size:92px;
+    color:#00d47a;
+    line-height:1;
+}
+
+.msg{
+    margin-top:8px;
+    font-size:25px;
+    font-weight:bold;
+    color:#fff;
+}
+
+/* Avaliação estilo app */
+.avaliacao-card{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    background:#242424;
+    border-radius:26px 26px 0 0;
+    padding:28px 24px 26px;
+    text-align:center;
+    box-shadow:0 -8px 30px rgba(0,0,0,0.45);
+    color:#fff;
+}
+
+.avaliacao-titulo{
+    font-size:24px;
+    font-weight:bold;
+    margin-bottom:22px;
+}
+
+.estrelas{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:0 auto 28px;
+    max-width:360px;
+}
+
+.star{
+    font-size:58px;
+    color:#5a5a5a;
+    cursor:pointer;
+    line-height:1;
+    transition:color 0.15s, transform 0.15s;
+}
+
+.star.active{
+    color:gold;
+    transform:scale(1.06);
+}
+
+.avaliacao-info{
+    border-top:1px solid #333;
+    padding-top:22px;
+    color:#bdbdbd;
+    font-size:16px;
+    margin-bottom:18px;
+}
+
+.overlay .btn-voltar{
+    background:#111;
+    color:white;
+    max-width:420px;
+    margin:0 auto;
+    display:block;
+}
+
+/* Botao raio (taxa +20%) */
+.linha-valor{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:12px;
+}
+
+.linha-valor input{
+    margin-bottom:0;
+    flex:1;
+}
+
+.btn-raio{
+    width:52px;
+    height:52px;
+    min-width:52px;
+    padding:0;
+    border-radius:14px;
+    background:#2a2a2a;
+    color:#888;
+    font-size:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid #3a3a3a;
+    cursor:pointer;
+    transition:all 0.15s;
+}
+
+.btn-raio.ativo{
+    background:#3a2f00;
+    color:gold;
+    border-color:gold;
+}
+
+.info-taxa{
+    text-align:center;
+    font-size:13px;
+    opacity:.8;
+    margin:-6px 0 12px 0;
+    display:none;
+}
+
+.info-taxa.visivel{
+    display:block;
+}
+
+.rodape{
+    text-align:center;
+    margin-top:22px;
+}
+
+.btn-resetar{
+    width:auto;
+    padding:6px 14px;
+    margin-top:0;
+    background:none;
+    border:1px solid #666;
+    color:inherit;
+    opacity:.6;
+    font-size:12px;
+    font-weight:normal;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+.btn-resetar:active{
+    opacity:.9;
+}
+
+/* ===== Responsivo para telas pequenas ===== */
+@media (max-width:360px){
+    body{padding:10px}
+    .card, .hourBlock{padding:14px}
+    .hourTotal{font-size:28px}
+    input, select, button{font-size:15px}
+    .tabBtn{font-size:13px;padding:11px}
+    .star{font-size:46px}
+}
+
+body.compact .card, body.compact .hourBlock{
+    padding:13px;
+}
+
+body.compact .hourTotal{
+    font-size:27px;
+}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Controle de Corridas</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+
+    <div class="topBar" id="topBar">
+        <button id="btnAtualizar" onclick="atualizarApp()" title="Limpa o cache do app e recarrega">🔄 Atualizar</button>
+    </div>
+
+    <div class="tabs" id="tabsBar">
+        <button class="tabBtn active" id="tabBtnGanhos" onclick="mudarAba('ganhos')">🚗 Ganhos</button>
+        <button class="tabBtn" id="tabBtnPix" onclick="mudarAba('pix')">💠 Pix</button>
+    </div>
+
+    <!-- ===================== ABA GANHOS ===================== -->
+    <div id="tabGanhos" class="tabContent active">
+
+        <button class="toggle" onclick="toggleTheme()">🌙 / ☀️ Alternar Tema</button>
+        <div class="card" style="text-align:center;position:relative">
+            <button onclick="resetarPonto()" title="Resetar horário" style="position:absolute;top:10px;right:10px;width:auto;padding:6px 9px;font-size:14px;background:rgba(255,255,255,.15);color:inherit;border-radius:10px">↺</button>
+            <div><b>💰 Total Geral</b></div><div id="totalGeral" style="font-size:28px">R$ 0,00</div>
+            <div id="pontoStatus" style="margin-top:10px;font-size:14px;opacity:.85;line-height:1.6"></div>
+            <div id="pontoBotoes" style="margin-top:10px"></div>
+        </div>
+
+        <button class="metaBtn" onclick="toggleMetaMenu()">
+            🎯 Meta por hora (R$ <span id="metaAtual">30</span>)
+        </button>
+
+        <div class="metaOptions" id="metaOptions">
+            <button onclick="alterarMeta(30)">30/h</button>
+            <button onclick="alterarMeta(40)">40/h</button>
+            <button onclick="alterarMeta(45)">45/h</button>
+        </div>
+
+        <div class="card">
+            <input id="valorCorrida" type="number" step="0.01" placeholder="Valor da corrida">
+            <div style="display:flex;gap:8px">
+                <button class="primary" style="flex:1" onclick="adicionarCorrida()">Adicionar Corrida</button>
+                <button id="reportBtn" onclick="baixarRelatorio()" style="width:60px;background:#1565c0;color:#fff" title="Baixar relatório do dia">📄</button>
+            </div>
+        </div>
+
+        <div id="listaHoras"></div>
+    </div>
+
+    <!-- ===================== ABA PIX ===================== -->
+    <div id="tabPix" class="tabContent">
+
+        <div class="pixTitulo">💠 Cobrar via Pix</div>
+
+        <button class="btn-chaves" onclick="abrirChavesModal()">🔑 Chaves</button>
+
+        <!-- FORM de geração -->
+        <div id="formArea" class="card">
+
+            <select id="chaveSelect"></select>
+
+            <div class="linha-valor">
+                <input type="number" id="valor" placeholder="Valor (opcional)" oninput="atualizarInfoTaxa()">
+                <button type="button" class="btn-raio" id="btnRaio" onclick="toggleTaxa()" title="Aplicar taxa de 20%">⚡</button>
+            </div>
+
+            <div class="info-taxa" id="infoTaxa"></div>
+
+            <button class="btn-gerar" id="btnGerar" onclick="gerarPix()">Gerar QR Code</button>
+        </div>
+
+        <!-- QR -->
+        <div id="qrArea">
+            <div id="qrcode"></div>
+
+            <button class="btn-recebido" onclick="confirmar()">Pagamento recebido</button>
+            <button class="btn-voltar" onclick="voltar()">Voltar</button>
+        </div>
+
+        <div class="rodape">
+            <button class="btn-voltar-pix" onclick="mudarAba('ganhos')">⬅ Voltar</button>
+            <button class="btn-resetar" onclick="resetar()">Resetar</button>
+        </div>
+    </div>
+
+</div>
+
+<!-- MODAL: Gerenciar Chaves Pix -->
+<div class="overlay" id="chavesOverlay">
+    <div class="chavesModalCard">
+        <div class="chavesModalHeader">
+            <div style="font-weight:bold;font-size:18px">🔑 Minhas Chaves Pix</div>
+            <button class="btn-fechar-chaves" onclick="fecharChavesModal()">✕</button>
+        </div>
+
+        <div id="listaChaves"></div>
+
+        <button class="btn-add-chave" onclick="abrirFormChave(null)">+ Adicionar chave</button>
+
+        <div class="formChave" id="formChave">
+            <input type="text" id="inputNomeChave" placeholder="Nome da chave (ex: PagSeguro)">
+            <input type="text" id="inputValorChave" placeholder="Chave Pix (CPF, e-mail, telefone ou aleatória)">
+            <div class="formChaveBotoes">
+                <button class="btn-salvar-chave" onclick="salvarFormChave()">Salvar</button>
+                <button class="btn-cancelar-chave" onclick="cancelarFormChave()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- OVERLAY (confirmação de pagamento Pix) -->
+<div class="overlay" id="overlay">
+    <div class="confirmacao-centro">
+        <div class="check">✔</div>
+        <div class="msg">Pagamento recebido</div>
+    </div>
+
+    <div class="avaliacao-card">
+        <div class="avaliacao-titulo">Como foi sua corrida?</div>
+
+        <div class="estrelas">
+            <span class="star" onclick="avaliar(1)">★</span>
+            <span class="star" onclick="avaliar(2)">★</span>
+            <span class="star" onclick="avaliar(3)">★</span>
+            <span class="star" onclick="avaliar(4)">★</span>
+            <span class="star" onclick="avaliar(5)">★</span>
+        </div>
+
+        <div class="avaliacao-info">Seu feedback pode ajudar a melhorar suas corridas</div>
+
+        <button class="btn-voltar" onclick="voltarConfirmacao()">Voltar</button>
+    </div>
+</div>
+
+<script src="js/utils.js"></script>
+<script src="js/corridas.js"></script>
+<script src="js/pix.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
